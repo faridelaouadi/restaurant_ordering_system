@@ -1,49 +1,9 @@
+{% extends 'orders/header.html' %}
 <!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Food ordering</title>
-  </head>
-  <body>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Pinocchio's Pizza & Subs</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Menu <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Directions</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Hours</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sicilian vs. Regular</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact Us</a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          <a href="#" class="btn btn-dark">Log Out</a>
-        </span>
-      </div>
-    </nav>
-
+{% block content %}
     <div class="container-fluid">
-
-      <div class="row" style="border:3px solid black">
+      <div class="row">
         {% for cat in categories %}
           <div class="card" style="width: 18rem; margin: 20px;"> <!-- The col-sm-4 stuff is that if its on a small screen it will take up a third of the widths-->
             <!--<img src={{cat.category_gif}} class="card-img-top" alt="gif for category item" style="width:100%;">-->
@@ -55,9 +15,9 @@
           </div>
         {% endfor %}
       </div>
-
-
     </div>
+
+{% endblock %}
 
 
 
