@@ -1,0 +1,14 @@
+/* Fixes TinyMCE 4 widget position in Django admin */
+.form-row .mce-tinymce {
+  margin-left: {{ margin_left }}px;
+}
+.form-row .mce-fullscreen {
+  margin-left: 0;
+}
+{% if responsive_admin %}
+@media (max-width: 767px) {
+    .form-row .mce-tinymce {
+        margin-left: 0;
+    }
+}
+{% endif %}
