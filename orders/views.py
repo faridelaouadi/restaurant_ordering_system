@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 
