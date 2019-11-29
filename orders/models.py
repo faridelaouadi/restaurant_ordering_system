@@ -58,7 +58,7 @@ class Pasta(models.Model):
 
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
-        return f"Pasta : {self.dish_name}"
+        return f"{self.dish_name}"
 
 
 class Salad(models.Model):

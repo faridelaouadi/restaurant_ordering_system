@@ -1,0 +1,38 @@
+{% extends 'orders/header.html' %}
+
+
+
+{% block content %}
+
+
+
+    <div class="container">
+
+      <h4 style="margin:10px; text-align:center;"> Choose one of the Subs &#x1f956 </h4>
+
+      <div class="row justify-content-center" >
+
+        <table class="table"  style="border: 2px solid black">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Sub Filling</th>
+              <th scope="col">Small</th>
+              <th scope="col">Large</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for dish in dishes %}
+              <tr>
+                <th>{{dish.sub_filling}}</th>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toppings_modal" ><strong>{{dish.small_price}}</strong></button></td>
+                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#toppings_modal" ><strong>{{dish.large_price}}</strong></button></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+{% endblock %}

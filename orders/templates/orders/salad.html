@@ -1,0 +1,30 @@
+{% extends 'orders/header.html' %}
+
+
+
+{% block content %}
+
+
+
+    <div class="container">
+
+
+      <h4 style="margin:10px; text-align:center;"> Choose one of the Salad dishes &#x1f957 </h4>
+      <div class="row justify-content-center">
+
+        {% for dish in dishes %}
+            <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
+              <div class="card-body">
+                <h5 class="card-title" >{{dish.dish_name}}</h5>
+              </div>
+              <button class="btn btn-success">£{{dish.price}}</button>
+            </div>
+        {% endfor %}
+
+
+      </div>
+
+    </div>
+
+
+{% endblock %}
