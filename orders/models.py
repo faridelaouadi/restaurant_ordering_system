@@ -39,7 +39,7 @@ class Toppings(models.Model):
 
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
-        return f"Topping : {self.topping_name}"
+        return f"{self.topping_name}"
 
 
 class Sub(models.Model):
