@@ -13,6 +13,7 @@ class Category(models.Model):
 
 class RegularPizza(models.Model):
     #example row :: 1 topping , 5.00 , 7.00
+    category = models.ForeignKey(Category, default=1, verbose_name="Dish Category", on_delete=models.SET_DEFAULT)
     pizza_choice = models.CharField(max_length=200)
     small_price = models.DecimalField(max_digits=6, decimal_places=2)
     large_price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -23,6 +24,7 @@ class RegularPizza(models.Model):
 
 class SicilianPizza(models.Model):
     #example row :: 1 topping , 5.00 , 7.00
+    category = models.ForeignKey(Category, default=1, verbose_name="Dish Category", on_delete=models.SET_DEFAULT)
     pizza_choice = models.CharField(max_length=200)
     small_price = models.DecimalField(max_digits=6, decimal_places=2)
     large_price = models.DecimalField(max_digits=6, decimal_places=2)
