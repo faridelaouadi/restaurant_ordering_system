@@ -17,6 +17,10 @@ class RegularPizza(models.Model):
     small_price = models.DecimalField(max_digits=6, decimal_places=2)
     large_price = models.DecimalField(max_digits=6, decimal_places=2)
 
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"Regular Pizza : {self.pizza_choice}"
+
 class SicilianPizza(models.Model):
     #example row :: 1 topping , 5.00 , 7.00
     pizza_choice = models.CharField(max_length=200)
