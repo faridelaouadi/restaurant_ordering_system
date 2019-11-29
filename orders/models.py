@@ -16,6 +16,7 @@ class RegularPizza(models.Model):
     pizza_choice = models.CharField(max_length=200)
     small_price = models.DecimalField(max_digits=6, decimal_places=2)
     large_price = models.DecimalField(max_digits=6, decimal_places=2)
+    category_description = models.TextField() #make this the wysiwyg text field
 
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
@@ -26,6 +27,7 @@ class SicilianPizza(models.Model):
     pizza_choice = models.CharField(max_length=200)
     small_price = models.DecimalField(max_digits=6, decimal_places=2)
     large_price = models.DecimalField(max_digits=6, decimal_places=2)
+    category_description = models.TextField() #make this the wysiwyg text field
 
     def __str__(self):
         #overriding the string method to get a good representation of it in string format

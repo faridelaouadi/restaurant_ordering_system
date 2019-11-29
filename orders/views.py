@@ -12,9 +12,6 @@ def index(request):
     else:
         return redirect("orders:login")
 
-def register(request):
-    return HttpResponse("this is the register page")
-
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -51,3 +48,10 @@ def register(request):
     return render(request = request,
                   template_name = "orders/register.html",
                   context={"form":UserCreationForm})
+
+
+def pizza(request):
+    if request.user.is_authenticated:
+        return render(request, "orders/pizza.html", context = {"regular_pizza":RegularPizza.objects.all, "sicillian_pizza":SicilianPizza.objects.all})
+    else:
+        return redirect("orders:login")
