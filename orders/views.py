@@ -82,3 +82,21 @@ def dinner_platters(request):
         return render(request, "orders/dinner_platters.html", context = {"dishes":DinnerPlatters.objects.all})
     else:
         return redirect("orders:login")
+
+def directions(request):
+    if request.user.is_authenticated:
+        return render(request, "orders/directions.html")
+    else:
+        return redirect("orders:login")
+
+def hours(request):
+    if request.user.is_authenticated:
+        return render(request, "orders/hours.html")
+    else:
+        return redirect("orders:login")
+
+def contact(request):
+    if request.user.is_authenticated:
+        return render(request, "orders/contact.html")
+    else:
+        return redirect("orders:login")
