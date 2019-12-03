@@ -1,0 +1,28 @@
+{% extends 'orders/header.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item Description</th>
+          <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody id="cart_body">
+        </tbody>
+    </table>
+
+    <h3>Total: <span class="badge badge-secondary" id="total"></span></h3>
+  </div>
+
+  <div class="row justify-content-center">
+    <button type="button" class="btn btn-success">Checkout</button>
+  </div>
+</div>
+
+
+{% endblock %}
