@@ -51,8 +51,8 @@
             {% for pizza in sicillian_pizza %}
               <tr>
                 <th>{{pizza.pizza_choice}}</th>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toppings_modal" ><strong>{{pizza.small_price}}</strong></button></td>
-                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#toppings_modal" ><strong>{{pizza.large_price}}</strong></button></td>
+                <td><button type="button" class="btn btn-primary add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Pizza with {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
+                <td><button type="button" class="btn btn-success add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Pizza with {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
               </tr>
             {% endfor %}
           </tbody>
@@ -70,8 +70,8 @@
             {% for pizza in regular_pizza %}
               <tr>
                 <th>{{pizza.pizza_choice}}</th>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toppings_modal" ><strong>{{pizza.small_price}}</strong></button></td>
-                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#toppings_modal"><strong>{{pizza.large_price}}</strong></button></td>
+                <td><button type="button" class="btn btn-primary add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Small Pizza with {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
+                <td><button type="button" class="btn btn-success add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Large Pizza with {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
               </tr>
             {% endfor %}
           </tbody>

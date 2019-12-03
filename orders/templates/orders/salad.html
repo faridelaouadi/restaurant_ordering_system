@@ -17,7 +17,7 @@
               <div class="card-body">
                 <h5 class="card-title" >{{dish.dish_name}}</h5>
               </div>
-              <button class="btn btn-success">£{{dish.price}}</button>
+              <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:{{dish.price}} })">£{{dish.price}}</button>
             </div>
         {% endfor %}
 

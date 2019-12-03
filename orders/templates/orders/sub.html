@@ -24,8 +24,8 @@
             {% for dish in dishes %}
               <tr>
                 <th>{{dish.sub_filling}}</th>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toppings_modal" ><strong>{{dish.small_price}}</strong></button></td>
-                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#toppings_modal" ><strong>{{dish.large_price}}</strong></button></td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description:'Small - {{dish.sub_filling}}' , price:{{dish.small_price}} })"><strong>{{dish.small_price}}</strong></button></td>
+                <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description:'Large - {{dish.sub_filling}}' , price:{{dish.large_price}} })"><strong>{{dish.large_price}}</strong></button></td>
               </tr>
             {% endfor %}
           </tbody>
