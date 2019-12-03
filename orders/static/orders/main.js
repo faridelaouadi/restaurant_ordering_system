@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         total += cart[i].price
       }
-      document.getElementById('total').innerHTML = '£' + String(total);
+      document.getElementById('total').innerHTML = '£' + String(Math.round(total * 100) / 100);
 
 
 
