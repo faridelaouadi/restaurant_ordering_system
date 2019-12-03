@@ -17,4 +17,5 @@ urlpatterns = [
     path("directions", views.directions, name="directions"),
     path("hours", views.hours, name="hours"),
     path("contact", views.contact, name="contact"),
+    path("cart", views.cart, name="cart"),
 ]

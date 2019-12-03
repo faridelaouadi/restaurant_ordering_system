@@ -49,7 +49,6 @@ def register(request):
                   template_name = "orders/register.html",
                   context={"form":UserCreationForm})
 
-
 def pizza(request):
     if request.user.is_authenticated:
         return render(request, "orders/pizza.html", context = {"regular_pizza":RegularPizza.objects.all, "sicillian_pizza":SicilianPizza.objects.all , "toppings":Toppings.objects.all})
@@ -98,5 +97,11 @@ def hours(request):
 def contact(request):
     if request.user.is_authenticated:
         return render(request, "orders/contact.html")
+    else:
+        return redirect("orders:login")
+
+def cart(request):
+    if request.user.is_authenticated:
+        return render(request, "orders/cart.html")
     else:
         return redirect("orders:login")
