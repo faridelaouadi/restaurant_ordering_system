@@ -8,25 +8,13 @@ $(document).ready(function() {
 
       for (var i = 0; i < cart.length; i++) {
 
-        var tr = document.createElement('tr');
-
-        var th = document.createElement('th');
-        var td1 = document.createElement('td');
-        var td2 = document.createElement('td');
-
-        var text1 = document.createTextNode(cart[i].item_description);
-        var text2 = document.createTextNode(cart[i].price);
-        var text3 = document.createTextNode(String(i+1));
-
-
-        td1.appendChild(text1);
-        td2.appendChild(text2);
-        th.appendChild(text3)
-        tr.appendChild(th);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-
-        table.appendChild(tr);
+        var row = table.insertRow(-1);
+        var item_number = row.insertCell(0);
+        var item_description = row.insertCell(1);
+        var item_price = row.insertCell(2);
+        item_number.innerHTML = String(i+1);
+        item_description.innerHTML = cart[i].item_description;
+        item_price.innerHTML = cart[i].price;
 
         total += cart[i].price
       }
@@ -36,6 +24,10 @@ $(document).ready(function() {
 
       //now lets include the onclick functionality
 
+      onRowClick("cart_body", function (row){
+        var value = row.getElementsByTagName("td")[0].innerHTML;
+        console.log("value >> ", value);
+    });
 
     }
   });
@@ -58,6 +50,20 @@ function add_to_cart(info){
 
 
 }
+
+function onRowClick(tableId, callback) {
+    var table = document.getElementById(tableId),
+        rows = table.getElementsByTagName("tr"),
+        i;
+    console.log("number of rows --> "+ String(rows.length))
+    for (i = 0; i < rows.length; i++) {
+        table.rows[i].onclick = function (row) {
+            return function () {
+                callback(row);
+            };
+        }(table.rows[i]);
+    }
+};
 
 function display_notif(info){
   toastr.options = {
