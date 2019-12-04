@@ -33,7 +33,6 @@ function onRowClick(tableId, callback) {
     }
 }
 
-
 function display_notif(info){
   toastr.options = {
     "closeButton": true,
@@ -88,4 +87,31 @@ function load_cart(){
     }
 
   });
+}
+
+function pizza_toppings(number_of_toppings, type_of_pizza, price){
+  console.log("open modal for "+ String(number_of_toppings)+" toppings")
+
+
+  var last_valid_selection = null;
+
+  $('#toppings_label')[0].innerHTML = "Choose "+ String(number_of_toppings) +" topping(s) here"
+  $('#select_toppings').change(function(event) {
+
+    if ($(this).val().length > number_of_toppings) {
+
+      $(this).val(last_valid_selection);
+    } else {
+      last_valid_selection = $(this).val();
+    }
+  }); //this is what restircts the user from choosing more than they are paying fpr
+  $('#toppings_modal').modal('show'); //show the modal
+
+
+
+  //var info={
+    //"item_description": type_of_pizza + "pizza with "+ list_toppings_here,
+  //  "price":price
+  //}
+  //add_to_cart(info)
 }

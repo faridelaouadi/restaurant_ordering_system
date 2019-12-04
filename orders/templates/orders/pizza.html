@@ -51,8 +51,13 @@
             {% for pizza in sicillian_pizza %}
               <tr>
                 <th>{{pizza.pizza_choice}}</th>
-                <td><button type="button" class="btn btn-primary add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Pizza with {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
-                <td><button type="button" class="btn btn-success add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Pizza with {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
+                {% if forloop.counter0 in number_of_toppings %}
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Sicillian', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Sicillian', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
+                {% else %}
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="add_to_cart({item_description: 'Sicillian Pizza - {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="add_to_cart({item_description: 'Sicillian Pizza - {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
+                {% endif %}
               </tr>
             {% endfor %}
           </tbody>
@@ -70,8 +75,13 @@
             {% for pizza in regular_pizza %}
               <tr>
                 <th>{{pizza.pizza_choice}}</th>
-                <td><button type="button" class="btn btn-primary add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Small Pizza with {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
-                <td><button type="button" class="btn btn-success add_to_cart" data-toggle="modal" data-target="#toppings_modal" onclick="add_to_cart({item_description: 'Large Pizza with {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
+                {% if forloop.counter0 in number_of_toppings %}
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Regular', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Regular', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
+                {% else %}
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="add_to_cart({item_description: 'Regular Pizza - {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="add_to_cart({item_description: 'Regular Pizza - {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
+                {% endif %}
               </tr>
             {% endfor %}
           </tbody>
@@ -91,8 +101,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <label for="exampleFormControlSelect2">Choose your toppings here</label>
-            <select multiple class="form-control" id="exampleFormControlSelect2">
+            <label id="toppings_label" for="exampleFormControlSelect2"></label>
+            <select multiple class="form-control" id="select_toppings">
               {% for topping in toppings %}
                 <option>{{topping}}</option>
               {% endfor %}
