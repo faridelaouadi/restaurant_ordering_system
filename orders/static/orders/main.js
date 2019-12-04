@@ -2,33 +2,7 @@ $(document).ready(function() {
     if (window.location.href.indexOf("cart") > -1) {
       //if we are on the cart page
       //dynamically generate the cart on the page
-      var cart = JSON.parse(localStorage.getItem("cart"));
-      var total = 0;
-      var table = document.getElementById('cart_body');
-
-      for (var i = 0; i < cart.length; i++) {
-
-        var row = table.insertRow(-1);
-        var item_number = row.insertCell(0);
-        var item_description = row.insertCell(1);
-        var item_price = row.insertCell(2);
-        item_number.innerHTML = String(i+1);
-        item_description.innerHTML = cart[i].item_description;
-        item_price.innerHTML = cart[i].price;
-
-        total += cart[i].price
-      }
-      document.getElementById('total').innerHTML = '£' + String(Math.round(total * 100) / 100);
-
-      //the lines above are creating the cart page
-
-      //now lets include the onclick functionality
-
-      onRowClick("cart_body", function (row){
-        var value = row.getElementsByTagName("td")[0].innerHTML;
-        console.log("value >> ", value);
-    });
-
+      load_cart()
     }
   });
 
@@ -55,7 +29,6 @@ function onRowClick(tableId, callback) {
     var table = document.getElementById(tableId),
         rows = table.getElementsByTagName("tr"),
         i;
-    console.log("number of rows --> "+ String(rows.length))
     for (i = 0; i < rows.length; i++) {
         table.rows[i].onclick = function (row) {
             return function () {
@@ -84,4 +57,41 @@ function display_notif(info){
     "hideMethod": "fadeOut"
   }
   toastr.success(info.item_description + ': £' + info.price, 'Added to Cart');
+}
+
+function load_cart(){
+  console.log("re render the table")
+  var table = document.getElementById('cart_body');
+  table.innerHTML = ""; //clear the table
+  var cart = JSON.parse(localStorage.getItem("cart"));
+  var total = 0;
+
+  for (var i = 0; i < cart.length; i++) {
+
+    var row = table.insertRow(-1);
+    var item_number = row.insertCell(0);
+    var item_description = row.insertCell(1);
+    var item_price = row.insertCell(2);
+    item_number.innerHTML = String(i+1);
+    item_description.innerHTML = cart[i].item_description;
+    item_price.innerHTML = cart[i].price;
+
+    total += cart[i].price
+  }
+  document.getElementById('total').innerHTML = '£' + String(Math.round(total * 100) / 100);
+
+  //the lines above are creating the cart page
+
+  //now lets include the onclick functionality
+
+  onRowClick("cart_body", function (row){
+    var value = row.getElementsByTagName("td")[0].innerHTML;
+    console.log("Deleting row ---> ", value);
+    document.getElementById("cart_body").deleteRow(value-1);
+    //edit the cart
+    cart.splice(value-1,1) //this is how you remove elements from a list in javascript 
+    localStorage.setItem('cart', JSON.stringify(cart));
+    load_cart()
+
+});
 }
