@@ -8,7 +8,7 @@ $(document).ready(function() {
 function add_to_cart(info){
   //info will be the stuff displayed in the reciept
   // item description as well as teh price
-  display_notif(info);
+  display_notif("add to cart", info);
   var cart_retrieved = localStorage.getItem("cart")
   if (cart_retrieved === null){
     //make a new cart
@@ -33,7 +33,8 @@ function onRowClick(tableId, callback) {
     }
 }
 
-function display_notif(info){
+function display_notif(type, info){
+  //the different types of toasts are success, warning ... info and error
   toastr.options = {
     "closeButton": true,
     "debug": false,
@@ -51,7 +52,14 @@ function display_notif(info){
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
   }
-  toastr.success(info.item_description + ': £' + info.price, 'Added to Cart');
+  switch (type){
+    case "add to cart":
+      toastr.success(info.item_description + ': £' + info.price, 'Added to Cart');
+      break;
+    case "remove from cart":
+      toastr.warning("Successfully removed "+info+ " from cart");
+  }
+
 }
 
 function load_cart(){
@@ -83,6 +91,7 @@ function load_cart(){
       //edit the cart
       cart.splice(value-1,1) //this is how you remove elements from a list in javascript
       localStorage.setItem('cart', JSON.stringify(cart)); //change the elements in the cart in local storage
+      display_notif("remove from cart", description)
       load_cart() //refresh the page
     }
 
@@ -106,12 +115,15 @@ function pizza_toppings(number_of_toppings, type_of_pizza, price){
     }
   }); //this is what restircts the user from choosing more than they are paying fpr
   $('#toppings_modal').modal('show'); //show the modal
+  $("#submit_toppings").click(function(){
+    var topping_choices = $('#select_toppings').val();
+    console.log("they chose the following toppings --> ",topping_choices )
+    $('#toppings_modal').modal('hide'); //hide the modal
+    var info={
+      "item_description": type_of_pizza + " pizza with "+ topping_choices,
+      "price":price
+    }
+    add_to_cart(info)
 
-
-
-  //var info={
-    //"item_description": type_of_pizza + "pizza with "+ list_toppings_here,
-  //  "price":price
-  //}
-  //add_to_cart(info)
+  });
 }
