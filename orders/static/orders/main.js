@@ -99,14 +99,12 @@ function load_cart(){
 }
 
 function pizza_toppings(number_of_toppings, type_of_pizza, price){
-  console.log("open modal for "+ String(number_of_toppings)+" toppings")
-
-
   var last_valid_selection = null;
 
   $('#toppings_label')[0].innerHTML = "Choose "+ String(number_of_toppings) +" topping(s) here"
   $('#select_toppings').change(function(event) {
-
+    console.log($(this).val().length)
+    console.log(number_of_toppings)
     if ($(this).val().length > number_of_toppings) {
 
       $(this).val(last_valid_selection);
@@ -114,11 +112,12 @@ function pizza_toppings(number_of_toppings, type_of_pizza, price){
       last_valid_selection = $(this).val();
     }
   }); //this is what restircts the user from choosing more than they are paying fpr
+
   $('#toppings_modal').modal('show'); //show the modal
   $("#submit_toppings").click(function(){
     var topping_choices = $('#select_toppings').val();
     console.log("they chose the following toppings --> ",topping_choices )
-    $('#toppings_modal').modal('hide'); //hide the modal
+    $('#toppings_modal').modal('toggle'); //hide the modal
     var info={
       "item_description": type_of_pizza + " pizza with "+ topping_choices,
       "price":price
@@ -126,4 +125,9 @@ function pizza_toppings(number_of_toppings, type_of_pizza, price){
     add_to_cart(info)
 
   });
+}
+
+function close_modal(){
+  $('#toppings_modal').modal('hide');
+  $('#toppings_modal').modal('dispose');
 }
