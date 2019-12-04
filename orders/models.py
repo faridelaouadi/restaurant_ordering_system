@@ -79,3 +79,8 @@ class DinnerPlatters(models.Model):
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
         return f"Platter : {self.dish_name}"
+
+class UserOrder(models.Model):
+    username = models.CharField(max_length=200) #who placed the order
+    order = models.TextField() #this will be a string representation of the cart from localStorage
+    price = models.DecimalField(max_digits=6, decimal_places=2) #how much was the order 
