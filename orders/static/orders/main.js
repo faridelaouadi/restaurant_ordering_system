@@ -9,6 +9,7 @@ $(document).ready(function() {
       for (var i = 0; i < cart.length; i++) {
 
         var tr = document.createElement('tr');
+
         var th = document.createElement('th');
         var td1 = document.createElement('td');
         var td2 = document.createElement('td');
@@ -16,6 +17,7 @@ $(document).ready(function() {
         var text1 = document.createTextNode(cart[i].item_description);
         var text2 = document.createTextNode(cart[i].price);
         var text3 = document.createTextNode(String(i+1));
+
 
         td1.appendChild(text1);
         td2.appendChild(text2);
@@ -30,7 +32,9 @@ $(document).ready(function() {
       }
       document.getElementById('total').innerHTML = '£' + String(Math.round(total * 100) / 100);
 
+      //the lines above are creating the cart page
 
+      //now lets include the onclick functionality
 
 
     }
@@ -75,14 +79,3 @@ function display_notif(info){
   }
   toastr.success(info.item_description + ': £' + info.price, 'Added to Cart');
 }
-
-
-
-
-
-/*
-<tr>
-  <th scope="row">{{ forloop.counter }}</th>
-  <td>Mark</td>
-  <td>Otto</td>
-</tr>*/
