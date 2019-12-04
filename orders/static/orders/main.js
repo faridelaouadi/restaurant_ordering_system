@@ -1,6 +1,5 @@
 $(document).ready(function() {
     if (window.location.href.indexOf("cart") > -1) {
-      //if we are on the cart page
       //dynamically generate the cart on the page
       load_cart()
     }
@@ -18,7 +17,6 @@ function add_to_cart(info){
   }else{
     var cart = JSON.parse(cart_retrieved);
     cart.push(info)
-    console.log("new cart would be ---> "+ cart);
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
@@ -26,17 +24,15 @@ function add_to_cart(info){
 }
 
 function onRowClick(tableId, callback) {
-    var table = document.getElementById(tableId),
-        rows = table.getElementsByTagName("tr"),
-        i;
+  var table = document.getElementById(tableId),
+      rows = table.getElementsByTagName("tr"),
+      i;
+
     for (i = 0; i < rows.length; i++) {
-        table.rows[i].onclick = function (row) {
-            return function () {
-                callback(row);
-            };
-        }(table.rows[i]);
+        table.rows[i].onclick = function (row) {return function () {callback(row);};}(table.rows[i]);
     }
-};
+}
+
 
 function display_notif(info){
   toastr.options = {
@@ -60,7 +56,6 @@ function display_notif(info){
 }
 
 function load_cart(){
-  console.log("re render the table")
   var table = document.getElementById('cart_body');
   table.innerHTML = ""; //clear the table
   var cart = JSON.parse(localStorage.getItem("cart"));
@@ -80,18 +75,17 @@ function load_cart(){
   }
   document.getElementById('total').innerHTML = '£' + String(Math.round(total * 100) / 100);
 
-  //the lines above are creating the cart page
-
-  //now lets include the onclick functionality
-
   onRowClick("cart_body", function (row){
     var value = row.getElementsByTagName("td")[0].innerHTML;
-    console.log("Deleting row ---> ", value);
-    document.getElementById("cart_body").deleteRow(value-1);
-    //edit the cart
-    cart.splice(value-1,1) //this is how you remove elements from a list in javascript 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    load_cart()
+    var description = row.getElementsByTagName("td")[1].innerHTML;
+    var r = confirm("Proceed to delete '"+description+ "' from cart?");
+    if (r == true) {
+      document.getElementById("cart_body").deleteRow(value-1);
+      //edit the cart
+      cart.splice(value-1,1) //this is how you remove elements from a list in javascript
+      localStorage.setItem('cart', JSON.stringify(cart)); //change the elements in the cart in local storage
+      load_cart() //refresh the page
+    }
 
-});
+  });
 }
