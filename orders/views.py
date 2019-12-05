@@ -141,3 +141,17 @@ def view_orders(request):
     else:
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
         return render(request, "orders/orders.html", context = {"rows":rows})
+
+def mark_order_as_delivered(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        UserOrder.objects.filter(pk=id).update(delivered=True)
+        return HttpResponse(
+            json.dumps({"good":"boy"}),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )

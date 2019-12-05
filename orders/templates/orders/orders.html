@@ -14,19 +14,21 @@
     <table class="table">
         <thead class="thead-light">
         <tr>
+          <th scope="col">Order ID</th>
           <th scope="col">Ordered by</th>
           <th scope="col">When?</th>
           <th scope="col">Order</th>
           <th scope="col">Amount Paid</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id = "orders_table">
           {% for row in rows %}
           {% if row.delivered %}
             <tr class="table-success">
           {% else %}
-            <tr class="table-danger">
+            <tr class="table-danger mark-as-complete">
           {% endif %}
+              <td>{{row.id}}</td>
               <td>{{row.username}}</td>
               <td>{{row.time_of_order}}</td>
               <td >

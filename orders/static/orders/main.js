@@ -3,7 +3,42 @@ $(document).ready(function() {
       //dynamically generate the cart on the page
       load_cart()
     }
+
+    if (window.location.href.indexOf("view-orders") > -1){
+      order_list_functionality()
+    }
   });
+
+function order_list_functionality(){
+  onRowClick("orders_table", function (row){
+    var id = row.getElementsByTagName("td")[0].innerHTML;
+    var csrftoken = getCookie('csrftoken');
+    if (row.classList.contains("mark-as-complete")){
+      var r = confirm("Would you like to mark order "+id+" as delivered?");
+      if (r == true) {
+        $.ajax({
+            url : "/mark_order_as_delivered" , // the endpoint
+            type : "POST", // http method
+            data : { id : id, csrfmiddlewaretoken: csrftoken}, // data sent with the post request
+
+            // handle a successful response
+            success : function(json) {
+                //make the row green
+                row.classList.remove("table-danger");
+                row.classList.add("table-success")
+            },
+
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                //have this as another toast
+                console.log("the server said no lol")
+            }
+        });
+      }
+    }
+
+  });
+}
 
 function add_to_cart(info){
   //info will be the stuff displayed in the reciept
@@ -81,13 +116,13 @@ function load_cart(){
       var item_price = row.insertCell(2);
       item_number.innerHTML = String(i+1);
       item_description.innerHTML = cart[i].item_description;
-      item_price.innerHTML = cart[i].price;
+      item_price.innerHTML = "£"+cart[i].price;
 
       total += cart[i].price
     }
     total = Math.round(total * 100) / 100
     localStorage.setItem('total_price', total);
-    document.getElementById('total').innerHTML = localStorage.getItem("total_price")
+    document.getElementById('total').innerHTML = "£"+localStorage.getItem("total_price")
 
 
     onRowClick("cart_body", function (row){
