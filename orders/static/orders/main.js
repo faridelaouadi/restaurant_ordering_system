@@ -14,6 +14,7 @@ function order_list_functionality(){
     var id = row.getElementsByTagName("td")[0].innerHTML;
     var csrftoken = getCookie('csrftoken');
     if (row.classList.contains("mark-as-complete")){
+      console.log({{}})
       var r = confirm("Would you like to mark order "+id+" as delivered?");
       if (r == true) {
         $.ajax({
