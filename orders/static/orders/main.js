@@ -134,16 +134,34 @@ function close_modal(){
   $('#toppings_modal').modal('dispose');
 }
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+} //this function is to get the CSRF token 
+
+
 function checkout(){
   //this is the function that will be run when the user wants to checkout
   var cart = localStorage.getItem("cart")
   var price_of_cart = localStorage.getItem("total_price")
+  var csrftoken = getCookie('csrftoken');
 
   console.log("Checkout was clicked so we now send it to the server!") // sanity check
   $.ajax({
       url : "/checkout" , // the endpoint
       type : "POST", // http method
-      data : { cart : cart, price_of_cart: price_of_cart }, // data sent with the post request
+      data : { cart : cart, price_of_cart: price_of_cart, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
 
       // handle a successful response
       success : function(json) {

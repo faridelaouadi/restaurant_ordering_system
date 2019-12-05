@@ -108,17 +108,16 @@ def cart(request):
     else:
         return redirect("orders:login")
 
-@csrf_exempt
 def checkout(request):
     if request.method == 'POST':
-        cart = request.POST.get('cart')
+        cart = json.loads(request.POST.get('cart'))
         price = request.POST.get('price_of_cart')
         username = request.user.username
         response_data = {}
-        print(f"\n\n\nWe will now create the order with cart --> {cart} and price --> {price}")
+        list_of_items = [item["item_description"] for item in cart]
 
-        #order = UserOrder(username=username, order=cart, price=float(price)) #create the row entry
-        #order.save() #save row entry in database
+        order = UserOrder(username=username, order=list_of_items, price=float(price)) #create the row entry
+        order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'
 
