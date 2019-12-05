@@ -1,8 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -105,3 +107,27 @@ def cart(request):
         return render(request, "orders/cart.html")
     else:
         return redirect("orders:login")
+
+@csrf_exempt
+def checkout(request):
+    if request.method == 'POST':
+        cart = request.POST.get('cart')
+        price = request.POST.get('price_of_cart')
+        username = request.user.username
+        response_data = {}
+        print(f"\n\n\nWe will now create the order with cart --> {cart} and price --> {price}")
+
+        #order = UserOrder(username=username, order=cart, price=float(price)) #create the row entry
+        #order.save() #save row entry in database
+
+        response_data['result'] = 'Order Recieved!'
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )

@@ -80,7 +80,9 @@ function load_cart(){
 
     total += cart[i].price
   }
-  document.getElementById('total').innerHTML = '£' + String(Math.round(total * 100) / 100);
+  total = Math.round(total * 100) / 100
+  document.getElementById('total').innerHTML = '£' + String(total);
+  localStorage.setItem('total_price', total);
 
   onRowClick("cart_body", function (row){
     var value = row.getElementsByTagName("td")[0].innerHTML;
@@ -125,9 +127,38 @@ function pizza_toppings(number_of_toppings, type_of_pizza, price){
     add_to_cart(info)
 
   });
-}
+};
 
 function close_modal(){
   $('#toppings_modal').modal('hide');
   $('#toppings_modal').modal('dispose');
+}
+
+function checkout(){
+  //this is the function that will be run when the user wants to checkout
+  var cart = localStorage.getItem("cart")
+  var price_of_cart = localStorage.getItem("total_price")
+
+  console.log("Checkout was clicked so we now send it to the server!") // sanity check
+  $.ajax({
+      url : "/checkout" , // the endpoint
+      type : "POST", // http method
+      data : { cart : cart, price_of_cart: price_of_cart }, // data sent with the post request
+
+      // handle a successful response
+      success : function(json) {
+          console.log("we successfully posted the info to the server")
+          console.log(json)
+      },
+
+      // handle a non-successful response
+      error : function(xhr,errmsg,err) {
+          console.log("the server said no lol")
+          console.log(xhr)
+          console.log(errmsg)
+          console.log(err)
+
+      }
+  });
+
 }
