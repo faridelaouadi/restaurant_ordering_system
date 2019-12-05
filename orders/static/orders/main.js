@@ -69,39 +69,43 @@ function display_notif(type, info="No info provided"){
 function load_cart(){
   var table = document.getElementById('cart_body');
   table.innerHTML = ""; //clear the table
+  document.getElementById('cart_heading').innerHTML = "To remove an item from cart, simply click it..."
   var cart = JSON.parse(localStorage.getItem("cart"));
   var total = 0;
+  if (cart !== null && cart.length > 0){
+    for (var i = 0; i < cart.length; i++) {
 
-  for (var i = 0; i < cart.length; i++) {
+      var row = table.insertRow(-1);
+      var item_number = row.insertCell(0);
+      var item_description = row.insertCell(1);
+      var item_price = row.insertCell(2);
+      item_number.innerHTML = String(i+1);
+      item_description.innerHTML = cart[i].item_description;
+      item_price.innerHTML = cart[i].price;
 
-    var row = table.insertRow(-1);
-    var item_number = row.insertCell(0);
-    var item_description = row.insertCell(1);
-    var item_price = row.insertCell(2);
-    item_number.innerHTML = String(i+1);
-    item_description.innerHTML = cart[i].item_description;
-    item_price.innerHTML = cart[i].price;
-
-    total += cart[i].price
-  }
-  total = Math.round(total * 100) / 100
-  document.getElementById('total').innerHTML = '£' + String(total);
-  localStorage.setItem('total_price', total);
-
-  onRowClick("cart_body", function (row){
-    var value = row.getElementsByTagName("td")[0].innerHTML;
-    var description = row.getElementsByTagName("td")[1].innerHTML;
-    var r = confirm("Proceed to delete '"+description+ "' from cart?");
-    if (r == true) {
-      document.getElementById("cart_body").deleteRow(value-1);
-      //edit the cart
-      cart.splice(value-1,1) //this is how you remove elements from a list in javascript
-      localStorage.setItem('cart', JSON.stringify(cart)); //change the elements in the cart in local storage
-      display_notif("remove from cart", description)
-      load_cart() //refresh the page
+      total += cart[i].price
     }
+    total = Math.round(total * 100) / 100
+    localStorage.setItem('total_price', total);
+    document.getElementById('total').innerHTML = localStorage.getItem("total_price")
 
-  });
+
+    onRowClick("cart_body", function (row){
+      var value = row.getElementsByTagName("td")[0].innerHTML;
+      var description = row.getElementsByTagName("td")[1].innerHTML;
+      var r = confirm("Proceed to delete '"+description+ "' from cart?");
+      if (r == true) {
+        document.getElementById("cart_body").deleteRow(value-1);
+        //edit the cart
+        cart.splice(value-1,1) //this is how you remove elements from a list in javascript
+        localStorage.setItem('cart', JSON.stringify(cart)); //change the elements in the cart in local storage
+        display_notif("remove from cart", description)
+        load_cart() //refresh the page
+      }
+    });
+  }else{
+    display_empty_cart()
+  }
 }
 
 function pizza_toppings(number_of_toppings, type_of_pizza, price){
@@ -154,6 +158,21 @@ function getCookie(name) {
     return cookieValue;
 } //this function is to get the CSRF token
 
+function display_empty_cart(){
+  var table = document.getElementById('cart_body');
+  table.innerHTML = ""; //clear the table
+  document.getElementById('total').innerHTML = ""
+  document.getElementById('cart_heading').innerHTML = "Cart is empty!"
+  document.getElementById("checkout_button").disabled = true;
+
+}
+
+function clear_cart(){
+  localStorage.removeItem("cart"); //Clear the cart
+  localStorage.removeItem("total_price"); //clear the price
+  //remove the elements from the page
+  display_empty_cart();
+}
 
 function checkout(){
   //this is the function that will be run when the user wants to checkout
@@ -169,16 +188,14 @@ function checkout(){
 
       // handle a successful response
       success : function(json) {
-          console.log("we successfully posted the info to the server")
-          console.log(json)
+          display_notif("new order")
+          clear_cart()
       },
 
       // handle a non-successful response
       error : function(xhr,errmsg,err) {
+          //have this as another toast
           console.log("the server said no lol")
-          console.log(xhr)
-          console.log(errmsg)
-          console.log(err)
 
       }
   });
