@@ -22,10 +22,14 @@
         </thead>
         <tbody>
           {% for row in rows %}
-            <tr>
+          {% if {{row.delivered}} %}
+            <tr class="table-success">
+          {% else %}
+            <tr class="table-danger">
+          {% endif %}
               <td>{{row.username}}</td>
               <td>{{row.time_of_order}}</td>
-              <td>
+              <td >
                 <ul>
                   {% for item in row.order|format_cart %}
                     <li>{{item|format_cart_item}}</li>

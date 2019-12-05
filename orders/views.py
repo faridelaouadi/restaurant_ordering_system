@@ -116,7 +116,7 @@ def checkout(request):
         response_data = {}
         list_of_items = [item["item_description"] for item in cart]
 
-        order = UserOrder(username=username, order=list_of_items, price=float(price)) #create the row entry
+        order = UserOrder(username=username, order=list_of_items, price=float(price), delivered=False) #create the row entry
         order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'

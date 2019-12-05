@@ -86,6 +86,7 @@ class UserOrder(models.Model):
     order = models.TextField() #this will be a string representation of the cart from localStorage
     price = models.DecimalField(max_digits=6, decimal_places=2) #how much was the order
     time_of_order  = models.DateTimeField(default=datetime.now, blank=True)
+    delivered = models.BooleanField()
 
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
