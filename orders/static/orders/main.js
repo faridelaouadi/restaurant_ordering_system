@@ -33,7 +33,7 @@ function onRowClick(tableId, callback) {
     }
 }
 
-function display_notif(type, info){
+function display_notif(type, info="No info provided"){
   //the different types of toasts are success, warning ... info and error
   toastr.options = {
     "closeButton": true,
@@ -58,6 +58,10 @@ function display_notif(type, info){
       break;
     case "remove from cart":
       toastr.warning("Successfully removed "+info+ " from cart");
+      break;
+    case "new order":
+      toastr.success("Order successfully placed");
+      break;
   }
 
 }
@@ -148,7 +152,7 @@ function getCookie(name) {
         }
     }
     return cookieValue;
-} //this function is to get the CSRF token 
+} //this function is to get the CSRF token
 
 
 function checkout(){
