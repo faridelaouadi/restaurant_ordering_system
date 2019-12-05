@@ -108,6 +108,21 @@ function load_cart(){
   }
 }
 
+function format_toppings(topping_choices){
+  var toppings = ""
+  var arrayLength = topping_choices.length;
+  for (var i = 0; i < arrayLength; i++) {
+      if (i == 0){
+        //first iteration
+        toppings += topping_choices[i]
+      }else{
+        toppings += " + "
+        toppings += topping_choices[i]
+      }
+  }
+  return toppings
+}
+
 function pizza_toppings(number_of_toppings, type_of_pizza, price){
   var last_valid_selection = null;
 
@@ -126,10 +141,11 @@ function pizza_toppings(number_of_toppings, type_of_pizza, price){
   $('#toppings_modal').modal('show'); //show the modal
   $("#submit_toppings").click(function(){
     var topping_choices = $('#select_toppings').val();
-    console.log("they chose the following toppings --> ",topping_choices )
+    //console.log("TOPping choices are "+topping_choices[0])
+
     $('#toppings_modal').modal('toggle'); //hide the modal
     var info={
-      "item_description": type_of_pizza + " pizza with "+ topping_choices,
+      "item_description": type_of_pizza + " pizza with "+ format_toppings(topping_choices),
       "price":price
     }
     add_to_cart(info)
