@@ -135,11 +135,9 @@ def view_orders(request):
     if request.user.is_superuser:
         #make a request for all the orders in the database
         rows = UserOrder.objects.all().order_by('-time_of_order')
-        orders = []
-        for row in iter(rows):
-            orders.append(row.order[1:-1].split(","))
+        #orders.append(row.order[1:-1].split(","))
 
-        return render(request, "orders/orders.html", context = {"rows":rows, "orders":orders})
+        return render(request, "orders/orders.html", context = {"rows":rows})
     else:
         orders = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
         return render(request, "orders/orders.html", context = {"orders":orders})
