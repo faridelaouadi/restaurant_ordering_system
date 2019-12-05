@@ -139,5 +139,5 @@ def view_orders(request):
 
         return render(request, "orders/orders.html", context = {"rows":rows})
     else:
-        orders = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
-        return render(request, "orders/orders.html", context = {"orders":orders})
+        rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
+        return render(request, "orders/orders.html", context = {"rows":rows})

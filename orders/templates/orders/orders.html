@@ -5,7 +5,12 @@
 
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <h2>List of orders are below...</h2>
+    {% if user.is_superuser %}
+      <h2>List of orders are below...</h2>
+    {% else %}
+      <h2> Orders by: {{user.get_username}} </h2>
+    {% endif %}
+
     <table class="table">
         <thead class="thead-light">
         <tr>
@@ -23,11 +28,11 @@
               <td>
                 <ul>
                   {% for item in row.order|format_cart %}
-                    <li>{{item}}</li>
+                    <li>{{item|format_cart_item}}</li>
                   {% endfor %}
                 </ul>
               </td>
-              <td>{{row.price}}</td>
+              <td>£{{row.price}}</td>
             </tr>
           {% endfor %}
         </tbody>
@@ -35,7 +40,6 @@
 
   </div>
 </div>
-
 
 
 
