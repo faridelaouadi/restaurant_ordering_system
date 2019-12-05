@@ -52,11 +52,11 @@
               <tr>
                 <th>{{pizza.pizza_choice}}</th>
                 {% if forloop.counter0 in number_of_toppings %}
-                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Sicillian', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
-                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Sicillian', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Small Sicillian', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Large Sicillian', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
                 {% else %}
-                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="add_to_cart({item_description: 'Sicillian Pizza - {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
-                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="add_to_cart({item_description: 'Sicillian Pizza - {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="add_to_cart({item_description: 'Small Sicillian Pizza - {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="add_to_cart({item_description: 'Large Sicillian Pizza - {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
                 {% endif %}
               </tr>
             {% endfor %}
@@ -76,11 +76,11 @@
               <tr>
                 <th>{{pizza.pizza_choice}}</th>
                 {% if forloop.counter0 in number_of_toppings %}
-                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Regular', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
-                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Regular', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Small Regular', {{pizza.small_price}})"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="pizza_toppings({{forloop.counter0}}, 'Large Regular', {{pizza.large_price}})"><strong>{{pizza.large_price}}</strong></button></td>
                 {% else %}
-                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="add_to_cart({item_description: 'Regular Pizza - {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
-                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="add_to_cart({item_description: 'Regular Pizza - {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-primary add_to_cart"  onclick="add_to_cart({item_description: 'Small Regular Pizza - {{pizza.pizza_choice}}' , price: {{pizza.small_price}} })"><strong>{{pizza.small_price}}</strong></button></td>
+                  <td><button type="button" class="btn btn-success add_to_cart"  onclick="add_to_cart({item_description: 'Large Regular Pizza - {{pizza.pizza_choice}}' , price: {{pizza.large_price}} })"><strong>{{pizza.large_price}}</strong></button></td>
                 {% endif %}
               </tr>
             {% endfor %}

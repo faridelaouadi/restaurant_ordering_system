@@ -1,0 +1,44 @@
+{% extends 'orders/header.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <h2>List of orders are below...</h2>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">Ordered by</th>
+          <th scope="col">When?</th>
+          <th scope="col">Order</th>
+          <th scope="col">Amount Paid</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+            <tr>
+              <td>{{row.username}}</td>
+              <td>{{row.time_of_order}}</td>
+              <td>
+                <ul>
+                  {% with name=10 %}
+                  {% for item in orders %}
+                    <li>{{forloop.parentloop.counter}}</li>
+                  {% endfor %}
+                  {% endwith %}
+                </ul>
+              </td>
+              <td>{{row.price}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}
