@@ -1,4 +1,16 @@
 $(document).ready(function() {
+    //check if local storage value of "cart retrived " is True
+    if (localStorage.getItem("cart_retrieved") !== "true"){
+      $.ajax({
+           url: "retrieve_saved_cart",
+           type: 'GET',
+           success: function(res) {
+                localStorage.setItem('cart_retrieved', true);
+                localStorage.setItem("cart", res)
+            }
+      });
+      //
+    }
     if (window.location.href.indexOf("cart") > -1) {
       //dynamically generate the cart on the page
       load_cart()
@@ -265,6 +277,7 @@ function logout(){
       success : function(json) {
         //clear the local storage
         localStorage.removeItem("cart"); //Clear the cart
+        localStorage.setItem('cart_retrieved', false);
         window.location.href = "/logout";
       },
 

@@ -23,7 +23,7 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                
+
                 return redirect('/')
 
     form = AuthenticationForm()
@@ -171,3 +171,7 @@ def save_cart(request):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+
+def retrieve_saved_cart(request):
+    saved_cart = SavedCarts.objects.get(username = request.user.username)
+    return HttpResponse(saved_cart.cart)
