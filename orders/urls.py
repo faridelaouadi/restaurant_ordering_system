@@ -23,5 +23,6 @@ urlpatterns = [
     path("mark_order_as_delivered", views.mark_order_as_delivered, name="mark_order_as_delivered"),
     path("save_cart", views.save_cart, name="save_cart"),
     path("retrieve_saved_cart", views.retrieve_saved_cart, name="retrieve_saved_cart"),
+    path("check_superuser", views.check_superuser, name="check_superuser"),
 
 ]

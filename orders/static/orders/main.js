@@ -1,16 +1,7 @@
 $(document).ready(function() {
     //check if local storage value of "cart retrived " is True
-    if (localStorage.getItem("cart_retrieved") !== "true"){
-      $.ajax({
-           url: "retrieve_saved_cart",
-           type: 'GET',
-           success: function(res) {
-                localStorage.setItem('cart_retrieved', true);
-                localStorage.setItem("cart", res)
-            }
-      });
-      //
-    }
+    retrieve_saved_cart()
+
     if (window.location.href.indexOf("cart") > -1) {
       //dynamically generate the cart on the page
       load_cart()
@@ -25,7 +16,9 @@ function order_list_functionality(){
   onRowClick("orders_table", function (row){
     var id = row.getElementsByTagName("td")[0].innerHTML;
     var csrftoken = getCookie('csrftoken');
-    if (row.classList.contains("mark-as-complete")){
+    //send get request to see if user has superuser permissions
+    var user_is_super = check_user_super();
+    if ( user_is_super && row.classList.contains("mark-as-complete") ){
       var r = confirm("Would you like to mark order "+id+" as delivered?");
       if (r == true) {
         $.ajax({
@@ -45,11 +38,30 @@ function order_list_functionality(){
                 //have this as another toast
                 console.log("the server said no lol")
             }
-        });
+        }); //make ajax post request
       }
     }
 
   });
+}
+
+function check_user_super(){
+  var return_value;
+  $.ajax({
+       url: "check_superuser",
+       type: 'GET',
+       success: function(res) {
+            console.log("we got back from the server the value ---> "+res)
+            if (res == "True"){
+              console.log("assigned true")
+              return_value = true;
+            }else{
+              return_value = false;
+            }
+        },
+        async: false
+  });
+  return return_value
 }
 
 function add_to_cart(info){
@@ -218,8 +230,7 @@ function getCookie(name) {
             }
         }
     }
-    return cookieValue;
-} //this function is to get the CSRF token
+    return cookieValue;} //this function is to get the CSRF token
 
 function display_empty_cart(){
   var table = document.getElementById('cart_body');
@@ -289,4 +300,18 @@ function logout(){
       }
   });
 
+}
+
+function retrieve_saved_cart(){
+  if (localStorage.getItem("cart_retrieved") !== "true"){
+    $.ajax({
+         url: "retrieve_saved_cart",
+         type: 'GET',
+         success: function(res) {
+              localStorage.setItem('cart_retrieved', true);
+              localStorage.setItem("cart", res)
+          }
+    });
+    //
+  }
 }

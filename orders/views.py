@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder, SavedCarts
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 import json
@@ -175,3 +176,7 @@ def save_cart(request):
 def retrieve_saved_cart(request):
     saved_cart = SavedCarts.objects.get(username = request.user.username)
     return HttpResponse(saved_cart.cart)
+
+def check_superuser(request):
+    print(f"User super??? {request.user.is_superuser}")
+    return HttpResponse(request.user.is_superuser)
