@@ -5,7 +5,7 @@
       <div class="row justify-content-center">
         {% for cat in categories %}
           <div class="card" style="width: 18rem; margin: 20px;"> <!-- The col-sm-4 stuff is that if its on a small screen it will take up a third of the widths-->
-            <!--<img src={{cat.category_gif}} class="card-img-top" alt="gif for category item" style="width:100%;">-->
+            <img src={{cat.category_gif}} class="card-img-top" alt="gif for category item" style="width:100%;">
             <div class="card-body">
               <h5 class="card-title" >{{cat.category_title}}</h5>
               <p class="card-text">{{cat.category_description|safe}}</p>
