@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder, SavedCarts
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 import json
@@ -146,6 +146,21 @@ def mark_order_as_delivered(request):
     if request.method == 'POST':
         id = request.POST.get('id')
         UserOrder.objects.filter(pk=id).update(delivered=True)
+        return HttpResponse(
+            json.dumps({"good":"boy"}),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+def save_cart(request):
+    if request.method == 'POST':
+        cart = request.POST.get('cart')
+        saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
+        saved_cart.save() #save row entry in database
         return HttpResponse(
             json.dumps({"good":"boy"}),
             content_type="application/json"

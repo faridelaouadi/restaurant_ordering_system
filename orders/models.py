@@ -91,3 +91,11 @@ class UserOrder(models.Model):
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
         return f"Order placed by  : {self.username} on {self.time_of_order.date()} at {self.time_of_order.time().strftime('%H:%M:%S')}"
+
+class SavedCarts(models.Model):
+    username = models.CharField(max_length=200, primary_key=True)
+    cart = models.TextField() #this will be a string representation of the cart from localStorage
+
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"Saved cart for {self.username}"

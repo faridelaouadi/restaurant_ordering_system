@@ -14,7 +14,6 @@ function order_list_functionality(){
     var id = row.getElementsByTagName("td")[0].innerHTML;
     var csrftoken = getCookie('csrftoken');
     if (row.classList.contains("mark-as-complete")){
-      console.log({{}})
       var r = confirm("Would you like to mark order "+id+" as delivered?");
       if (r == true) {
         $.ajax({
@@ -242,6 +241,29 @@ function checkout(){
       success : function(json) {
           display_notif("new order")
           clear_cart()
+      },
+
+      // handle a non-successful response
+      error : function(xhr,errmsg,err) {
+          //have this as another toast
+          console.log("the server said no lol")
+
+      }
+  });
+
+}
+
+function logout(){
+  var current_cart = localStorage.getItem("cart")
+  var csrftoken = getCookie('csrftoken');
+  $.ajax({
+      url : "/save_cart" , // the endpoint
+      type : "POST", // http method
+      data : { cart : current_cart, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
+
+      // handle a successful response
+      success : function(json) {
+        window.location.href = "/logout";
       },
 
       // handle a non-successful response
