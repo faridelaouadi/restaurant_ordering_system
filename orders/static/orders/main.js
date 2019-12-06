@@ -263,6 +263,8 @@ function logout(){
 
       // handle a successful response
       success : function(json) {
+        //clear the local storage
+        localStorage.removeItem("cart"); //Clear the cart
         window.location.href = "/logout";
       },
 
