@@ -1,6 +1,6 @@
 Project Description
 ----------
-- A web app using Django and vanilla Javascript simulating a restaurant ordering system. Users can browse the restaurant’s menu, add items to their cart, and submit their orders. Meanwhile, the restaurant owners can add and update menu items, and view orders that have been placed. Styling is done using Bootstrap.
+- A web app made using Django and Javascript simulating a restaurant ordering system. Users can browse the restaurant’s menu, add items to their cart, and submit their orders. Meanwhile, the restaurant owners can add and update menu items (using the Django Admin interface), and view orders that have been placed (using page in the interface). Styling is done using Bootstrap.
 
 Current Progress
 ----------------
