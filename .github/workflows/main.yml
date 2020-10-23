@@ -20,7 +20,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Security check - Bandit
-      run: bandit -r .
+    - run: pip install bandit
+    - run: bandit -r .
 
 
     - name: Security check report artifacts
