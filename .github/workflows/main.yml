@@ -8,20 +8,22 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-    name: Python ${{ matrix.os }} 
+        python-version: [ '2.7.17', '3.6.10' ]
+    name: Python ${{ matrix.python-version }} ${{ matrix.os }} 
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Security check - Bandit
-      uses: ioggstream/bandit-report-artifacts@v0.0.1
+      uses: Joel-hanson/bandit-report-artifacts
       with:
+        python_version: ${{ matrix.python-version }}
         project_path: .
         ignore_failure: true
 
-    # This is optional
     - name: Security check report artifacts
       uses: actions/upload-artifact@v1
+      # if: failure()
       with:
         name: Security report
         path: output/security_report.txt
