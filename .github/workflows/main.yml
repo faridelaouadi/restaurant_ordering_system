@@ -19,11 +19,10 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Security check - Bandit
-    - run: pip install bandit
-    - run: bandit -r .
-
-
+    - name: Install Bandit
+      run: pip install bandit
+    - name: run Bandit
+      run: bandit -r .
     - name: Security check report artifacts
       uses: actions/upload-artifact@v1
       # if: failure()
