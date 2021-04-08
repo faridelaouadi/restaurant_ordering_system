@@ -1,4 +1,4 @@
-Django==2.2.7
+Django==2.2.20
 django-tinymce4-lite==1.7.5
 jsmin==2.2.2
 pytz==2019.3
